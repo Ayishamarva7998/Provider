@@ -10,39 +10,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // int _counter = 0;
-
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     final counterData = Provider.of<CounterNotifier>(context);
+    print("Provider");
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('hey!',style: TextStyle(color: Colors.black),),backgroundColor: Colors.limeAccent,),
+        appBar: AppBar(
+          title: const Text(
+            'Provider!',
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.limeAccent,
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Add +'),
-              Text(
-                counterData.counter.toString(),
-              ),
+              Text('How many time user clicked this button'),
+              Consumer<CounterNotifier>(builder: (context, data, _) {
+                return Text(
+                  data.counter.toString(),
+                );
+              }),
+              ElevatedButton(
+                  onPressed: counterData.increment,
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.limeAccent),
+                  child: Icon(Icons.add))
             ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: counterData.increment,
-          backgroundColor: Colors.limeAccent,
-          tooltip: 'vbbbbb',
-          child: Icon(Icons.add),
         ),
       ),
     );
   }
 }
-

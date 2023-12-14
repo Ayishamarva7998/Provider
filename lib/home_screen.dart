@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/counter_notifier.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,16 +10,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
+  // int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  // void _incrementCounter() {
+  //   setState(() {
+  //     _counter++;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final counterData = Provider.of<CounterNotifier>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: Text('hey!',style: TextStyle(color: Colors.black),),backgroundColor: Colors.limeAccent,),
@@ -26,12 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Add +'),
-              Text(" $_counter"),
+              Text(
+                counterData.counter.toString(),
+              ),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
+          onPressed: counterData.increment,
           backgroundColor: Colors.limeAccent,
           tooltip: 'vbbbbb',
           child: Icon(Icons.add),
